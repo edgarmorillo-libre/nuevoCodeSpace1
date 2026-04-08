@@ -1,8 +1,10 @@
 const STORAGE_KEY = 'todo-app-items';
+const THEME_KEY = 'todo-app-theme';
 const form = document.getElementById('todo-form');
 const input = document.getElementById('todo-input');
 const todoList = document.getElementById('todo-list');
 const message = document.getElementById('message');
+const themeToggle = document.getElementById('theme-toggle');
 
 let todos = [];
 
@@ -13,6 +15,27 @@ function loadTodos() {
 
 function saveTodos() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
+function loadTheme() {
+  const theme = localStorage.getItem(THEME_KEY);
+  if (theme === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeToggle.textContent = '☀️';
+  } else {
+    document.body.classList.remove('dark-mode');
+    themeToggle.textContent = '🌙';
+  }
+}
+
+function saveTheme(isDark) {
+  localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+}
+
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark-mode');
+  themeToggle.textContent = isDark ? '☀️' : '🌙';
+  saveTheme(isDark);
 }
 
 function showMessage(text, isError = true) {
@@ -118,7 +141,10 @@ form.addEventListener('submit', event => {
   addTodo(input.value);
 });
 
+themeToggle.addEventListener('click', toggleTheme);
+
 window.addEventListener('DOMContentLoaded', () => {
   loadTodos();
+  loadTheme();
   renderTodos();
 });

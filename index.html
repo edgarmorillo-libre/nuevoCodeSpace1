@@ -9,7 +9,12 @@
 <body>
   <main class="app-container">
     <section class="todo-panel">
-      <h1>Lista de Tareas</h1>
+      <header class="panel-header">
+        <h1>Lista de Tareas</h1>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Cambiar tema">
+          🌙
+        </button>
+      </header>
       <form id="todo-form" class="todo-form">
         <input type="text" id="todo-input" placeholder="Escribe una tarea..." maxlength="100" autocomplete="off">
         <button type="submit">Agregar</button>
